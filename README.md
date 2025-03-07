@@ -2,7 +2,7 @@
 
 This application allows you to upload multiple PDF research papers and ask questions about their content. The system uses the Landing AI API to extract text, tables, and figures from the PDFs, and leverages OpenAI's GPT-4o model to generate accurate answers with visual evidence.
 
-![App Screenshot](https://via.placeholder.com/800x400?text=PDF+QA+Assistant)
+![App Screenshot](multi-pdf-app.png)
 
 ## Features
 
