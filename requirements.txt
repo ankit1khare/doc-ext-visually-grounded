@@ -1,0 +1,11 @@
+streamlit
+python-dotenv
+openai
+faiss-cpu
+langchain
+langchain-community
+langchain-openai
+PyMuPDF
+fpdf2
+fpdf
+streamlit-pdf-viewer
