@@ -45,7 +45,7 @@ pip install -r requirements.txt
 
 3. Create a `.env` file in the project root directory with your API keys:
 ```
-VISION_AGENT_API_KEY=your_landing_ai_api_key
+VISION_AGENT_API_KEY=your_api_key
 OPENAI_API_KEY=your_openai_api_key
 ```
 
@@ -53,7 +53,7 @@ OPENAI_API_KEY=your_openai_api_key
 
 1. Run the Streamlit application (SDK version recommended):
 ```bash
-streamlit run app_osama_fix.py
+streamlit run sdk-app.py
 ```
 
 2. Open the provided URL in your web browser (typically http://localhost:8501)
@@ -98,10 +98,10 @@ streamlit run app_osama_fix.py
 ## Examples
 
 Ask questions like:
-- "What are the main findings of this research?"
-- "What methodology was used in the study?"
-- "Compare the results across these papers."
-- "What are the limitations mentioned in the research?"
+- "what are the main findings of this research?"
+- "find authors of the paper?"
+- "explain figure 1 from the paper?"
+- "compare table 1 from this paper and table 3 from the other paper?"
 
 ## License
 
