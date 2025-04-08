@@ -1,18 +1,34 @@
-# Multi-PDF Research Paper QA Assistant
+# Multi-PDF Research Paper QA Assistant (SDK Edition)
 
-This application allows you to upload multiple PDF research papers and ask questions about their content. The system uses the Landing AI API to extract text, tables, and figures from the PDFs, and leverages OpenAI's GPT-4o model to generate accurate answers with visual evidence.
+This application allows you to upload multiple PDF research papers and ask questions about their content. The system leverages the agentic-doc SDK from Landing AI to extract text, tables, and figures from the PDFs, and uses OpenAI's GPT-4o model to generate accurate answers with visual evidence.
 
 ![App Screenshot](multi-pdf-app.png)
 
 ## Features
 
 - **Multiple PDF Support**: Upload several PDF files simultaneously
-- **Document Analysis**: Extracts text, tables, and figures from PDFs using Landing AI API
+- **Document Analysis**: Extracts text, tables, and figures from PDFs using Landing AI's agentic-doc SDK
 - **Question Answering**: Ask questions about the content of your PDFs
 - **Visual Evidence**: See exactly where in the document the answers come from with highlighted bounding boxes
 - **Reasoning Transparency**: Includes detailed reasoning explaining how the answer was derived
-- **Batch Processing**: Efficiently processes large PDFs in manageable chunks
+- **Optimized Parallel Processing**: Efficiently processes documents with maximum parallelism
+- **Large Document Support**: Handles PDFs of any size through automatic chunking and reassembly
 - **Chat History**: Maintains conversation history for reference
+
+## Available Versions
+
+This repository contains two implementation approaches:
+
+- **app.py**: The original version that interacts directly with the Landing AI REST API
+  - More complex error handling
+  - Manual chunking of large PDFs
+  - Direct HTTP request management
+
+- **sdk-app.py**: The improved SDK version that uses the agentic-doc Python library
+  - Cleaner, more maintainable code
+  - Automatic handling of large PDFs
+  - Built-in error handling and retries
+  - Optimized parallel processing
 
 ## Installation
 
@@ -29,13 +45,13 @@ pip install -r requirements.txt
 
 3. Create a `.env` file in the project root directory with your API keys:
 ```
-LANDING_API_KEY=your_landing_ai_api_key
+VISION_AGENT_API_KEY=your_landing_ai_api_key
 OPENAI_API_KEY=your_openai_api_key
 ```
 
 ## Usage
 
-1. Run the Streamlit application:
+1. Run the Streamlit application (SDK version recommended):
 ```bash
 streamlit run app_osama_fix.py
 ```
@@ -44,7 +60,7 @@ streamlit run app_osama_fix.py
 
 3. Upload one or more PDF research papers using the file uploader
 
-4. Wait for the system to precompute evidence from the PDFs
+4. Wait for the system to precompute evidence from the PDFs (the SDK version uses maximum parallelism for faster processing)
 
 5. Enter your question in the chat input box
 
@@ -52,31 +68,32 @@ streamlit run app_osama_fix.py
 
 ## Requirements
 
-- Python 3.7+
+- Python 3.9+ (required by the agentic-doc SDK)
 - Landing AI API key (for document analysis)
 - OpenAI API key (for question answering)
+- Sufficient credit balance in your Landing AI account (you get 10usd free balance when you sign-up)
 
 ## Dependencies
 
+- `agentic-doc`: Landing AI's Python SDK for document extraction
 - `streamlit`: Web application framework
 - `openai`: OpenAI API client for GPT-4o
-- `PyPDF2`: PDF manipulation
+- `PyMuPDF`: PDF rendering
 - `opencv-python`: Image processing
 - `Pillow`: Image handling
-- `requests`: HTTP requests
 - `fpdf`: PDF generation
-- `PyMuPDF`: PDF rendering
 - `python-dotenv`: Environment variable management
 - `numpy`: Numerical operations
 
 ## How It Works
 
-1. **PDF Processing**: The application splits PDFs into chunks of 3 pages and processes them using the Landing AI API
-2. **Evidence Extraction**: Text, tables, and figures are extracted with their positions (bounding boxes)
-3. **Question Analysis**: When a user asks a question, the system searches through the precomputed evidence
-4. **Answer Generation**: GPT-4o analyzes the relevant evidence and generates a comprehensive answer
-5. **Visual Evidence**: The system highlights the exact locations in the PDF where the answer was found
-6. **Result Presentation**: The answer, reasoning, and annotated PDF pages are displayed to the user
+1. **SDK Optimization**: The application configures the SDK with optimal parallelism (BATCH_SIZE=20, MAX_WORKERS=5)
+2. **PDF Processing**: PDFs are processed in parallel using the SDK's built-in capabilities
+3. **Evidence Extraction**: Text, tables, and figures are extracted with their positions (bounding boxes)
+4. **Question Analysis**: When a user asks a question, the system searches through the extracted evidence
+5. **Answer Generation**: GPT-4o analyzes the relevant evidence and generates a comprehensive answer
+6. **Visual Evidence**: The system highlights the exact locations in the PDF where the answer was found
+7. **Result Presentation**: The answer, reasoning, and annotated PDF pages are displayed to the user
 
 ## Examples
 
@@ -96,7 +113,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Acknowledgements
 
-- [Landing AI](https://landing.ai/) for their document analysis API
+- [Landing AI](https://landing.ai/) for their agentic-doc SDK and API
 - [OpenAI](https://openai.com/) for their GPT-4o model
 - [Streamlit](https://streamlit.io/) for the web application framework
 
